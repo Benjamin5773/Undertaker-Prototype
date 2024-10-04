@@ -13,6 +13,10 @@ public class Boss : MonoBehaviour
     [SerializeField] float rotateSmooth = 0.05f;
     float bossHealth;
 
+    [Header("Teleport")]
+    [SerializeField] float teleportDistance = 3f; // 闪现到玩家前方的距离
+    [SerializeField] float teleportDelay = 2f; // 闪现前的倒计时
+
     [Header("Action")]
     [SerializeField] float minActionCooldown = 5f;
     [SerializeField] float maxActionCooldown = 10f;
@@ -27,7 +31,6 @@ public class Boss : MonoBehaviour
     }
     public State currentState = State.cooldown;
 
-    // Distance and direction
     float playerDistance;
     Vector3 playerDirection;
 
@@ -46,10 +49,8 @@ public class Boss : MonoBehaviour
             case State.cooldown:
                 ChasingPlayer();
                 LookingPlayer();
-                // Reduce cooldown timer
                 actionCooldownTimer -= Time.deltaTime;
                 actionCooldownTimer = Mathf.Clamp(actionCooldownTimer, 0, Mathf.Infinity);
-                // if cooldown complete, switch state
                 if (actionCooldownTimer <= 0)
                 {
                     currentState = State.makeDesicion;
@@ -64,19 +65,16 @@ public class Boss : MonoBehaviour
         }
     }
 
-    // Control boss chasing behavior
     void ChasingPlayer()
     {
         transform.position += playerDirection * Time.deltaTime * bossMoveSpeed;
     }
 
-    // Control boss looking behavior
     void LookingPlayer()
     {
         transform.forward = Vector3.Lerp(transform.forward, playerDirection, rotateSmooth);
     }
 
-    // Set distance and direction between player
     void GetDistanceDirection()
     {
         Vector3 playerXZ = new Vector3(player.transform.position.x, 0, player.transform.position.z);
@@ -85,21 +83,43 @@ public class Boss : MonoBehaviour
         playerDirection = (playerXZ - selfXZ).normalized;
     }
 
-    // Simple decision by distance
     void MakeDecision()
     {
         if (playerDistance <= closeRangeThreshold)
         {
             CloseRangeAttack();
         }
-        if (playerDistance > closeRangeThreshold)
+        else
         {
-            LongRangeAttack();
+            StartCoroutine(PrepareTeleport());
         }
     }
 
-    // Pick a random cooldown in range, reset the cooldown timer, switch state
-    // *Attach to the last frame event of attack animation*
+    IEnumerator PrepareTeleport()
+    {
+        Debug.Log($"Teleport in {teleportDelay} seconds."); // 打印倒计时
+        yield return new WaitForSeconds(teleportDelay);
+        StartCoroutine(LongRangeAttack());
+    }
+
+    IEnumerator LongRangeAttack()
+    {
+        Vector3 originalPosition = transform.position; // 记录原始位置
+        Vector3 teleportPosition = player.transform.position + player.transform.forward * teleportDistance; // 计算闪现位置
+        transform.position = teleportPosition; // 闪现到玩家前方
+        
+        // Boss 面朝玩家
+        Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); // 保持Y轴高度不变
+        transform.LookAt(playerDirectionXZ); // Boss 强制面向玩家
+
+        yield return new WaitForSeconds(1.5f); // 停顿1.5秒
+         //transform.position = originalPosition; // 返回原始位置
+        Debug.Log("Long range attack");
+
+        ChasingPlayer(); // 继续追踪玩家
+        ResetActionCooldown();
+    }
+
     void ResetActionCooldown()
     {
         float randomCooldown = Random.Range(minActionCooldown, maxActionCooldown);
@@ -107,29 +127,9 @@ public class Boss : MonoBehaviour
         currentState = State.cooldown;
     }
 
-    // *Attach to the frame event of attack start*
-    public void AttackStart(float damage)
-    {
-        
-    }
-
-    // *Attach to the frame event of attack end*
-    public void AttackEnd()
-    {
-
-    }
-
     void CloseRangeAttack()
     {
-        // animator.SetTrigger("CloseRangeAttack");
         Debug.Log("Close range attack");
-        Invoke("ResetActionCooldown", 5f);
-    }
-
-    void LongRangeAttack()
-    {
-        // animator.SetTrigger("LongRangeAttack");
-        Debug.Log("Long range attack");
         Invoke("ResetActionCooldown", 5f);
     }
 }
