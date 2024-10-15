@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
     [Header("Basic")]
     [SerializeField] float bossMaxHealth = 5f;
     [SerializeField] float bossMoveSpeed = 5f;
-    float bossHealth;
+    [SerializeField] float bossHealth;
 
     [Header("Teleport")]
     [SerializeField] float teleportDistance = 3f; // 闪现到玩家前方的距离
