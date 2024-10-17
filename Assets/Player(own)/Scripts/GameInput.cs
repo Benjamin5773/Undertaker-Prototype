@@ -28,6 +28,15 @@ public class GameInput : MonoBehaviour
         return inputActions.Player.Dash.WasPressedThisFrame();
     }
 
+    public bool IsNormalAttackButtonPressed(){
+        // Check if the NormalAttack button is currently being pressed
+        return inputActions.Player.NormalAttack.WasPressedThisFrame();
+    }
+
+    public bool IsSkillButtonPressed(){
+        return inputActions.Player.Skill.WasPressedThisFrame();
+    }
+
     private void OnEnable()
     {
         // Enable the input action map when the object is enabled

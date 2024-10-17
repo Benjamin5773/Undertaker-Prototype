@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExampleScript : MonoBehaviour {
+public class CameraSwitch : MonoBehaviour {
     [SerializeField] private GameObject overshoulderCamera;
     [SerializeField] private GameObject overheadCamera;
 
