@@ -30,10 +30,8 @@ public class Boss : MonoBehaviour
     private float actionCooldownTimer;
 
     [Header("Effects")]
-    //[SerializeField] GameObject teleportEffect; // 闪现特效
-    //[SerializeField] GameObject chargeEffect;   // 冲刺特效
-    [SerializeField] ParticleSystem teleportEffect; 
-    [SerializeField] ParticleSystem chargeEffect;  
+    [SerializeField] ParticleSystem teleportEffect; //闪现攻击特效
+    [SerializeField] ParticleSystem chargeEffect;  //穿刺攻击特效
 
     [HideInInspector] public enum State
     {
@@ -156,7 +154,6 @@ public class Boss : MonoBehaviour
         transform.forward = playerDirectionXZ - transform.position;// Boss 强制面向玩家
         
        // yield return new WaitForSeconds(1.5f); // 停顿（完成转向）
-        
         //transform.position = originalPosition; // 返回原始位置（效果不好，会贴脸玩家）
 
         if (attackType == 1)
@@ -165,7 +162,6 @@ public class Boss : MonoBehaviour
          CloseRangeAttack();
         }
         if (attackType == 2)
-            
             StartCoroutine(ChargeAttack(3));
         // ChasingPlayer(); // 继续追踪玩家
         // ResetActionCooldown();
@@ -198,8 +194,6 @@ public class Boss : MonoBehaviour
             while (Vector3.Distance(transform.position, targetPos) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, chargeSpeed * Time.deltaTime);
-               // GameObject effect = Instantiate(chargeEffect, transform.position, Quaternion.identity);
-               // Destroy(effect, 1f);
                 yield return null;
             }
 
@@ -216,8 +210,7 @@ public class Boss : MonoBehaviour
         Debug.Log("Close range attack");
          // 播放攻击特效
           teleportEffect.Play(); // 播放粒子特效
-       // GameObject effect = Instantiate(teleportEffect, transform.position, Quaternion.identity);
-        //Destroy(effect, 1f); // 完成后销毁特效
+
         ResetActionCooldown();
     }
 
