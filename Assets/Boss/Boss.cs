@@ -15,12 +15,12 @@ public class Boss : MonoBehaviour
     [SerializeField] float bossHealth;
 
     [Header("Teleport")]
-    [SerializeField] float teleportDistance = 3f; // 闪现到玩家前方的距离
+    [SerializeField] float teleportDistance = 3f; // 闪现的距离
     [SerializeField] float teleportDelay = 2f; // 闪现前的倒计时
 
     [Header("ChargeAttack")]
-    [SerializeField] float chargePrepareTime = 1f;
-    [SerializeField] float chargeSpeed = 25f;
+    [SerializeField] float chargePrepareTime = 1f;// 穿刺前摇
+    [SerializeField] float chargeSpeed = 25f;// 穿刺速度
     [SerializeField] float chargeOffset = 3f;
 
     [Header("Action")]
@@ -95,6 +95,7 @@ public class Boss : MonoBehaviour
 
     void MakeDecision()
     {
+        //一阶段
         if ((bossHealth / bossMaxHealth) >= 2.0f/3.0f)
         {
             if (playerDistance > closeRangeThreshold)
@@ -102,6 +103,7 @@ public class Boss : MonoBehaviour
             else
                 CloseRangeAttack();
         }
+        //二阶段
         else if ((bossHealth / bossMaxHealth) < 2.0f/3.0f && (bossHealth / bossMaxHealth) >= 1.0f/3.0f)
         {
             if (playerDistance > closeRangeThreshold)
@@ -128,26 +130,27 @@ public class Boss : MonoBehaviour
 
     IEnumerator PrepareTeleport(int attackType)
     {
-        Debug.Log($"Teleport in {teleportDelay} seconds."); // 打印倒计时
+        Debug.Log($"Teleport in {teleportDelay} seconds.");
         yield return new WaitForSeconds(teleportDelay);
         StartCoroutine(TeleportAttack(attackType));
     }
 
     // 1: CloseRangeAttack
     // 2: TripleChargeAttack
+    //闪现攻击
     IEnumerator TeleportAttack(int attackType)
     {
-        Vector3 originalPosition = transform.position; // 记录原始位置
+        Vector3 originalPosition = transform.position; 
         Vector3 teleportPosition = player.transform.position + player.transform.forward * teleportDistance; // 计算闪现位置
-        transform.position = teleportPosition; // 闪现到玩家前方
+        transform.position = teleportPosition; 
         
         // Boss 面朝玩家
-        Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); // 保持Y轴高度不变
-        //transform.LookAt(playerDirectionXZ); // Boss 强制面向玩家
-        transform.forward = playerDirectionXZ - transform.position;
+        Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); 
+        //transform.LookAt(playerDirectionXZ); 
+        transform.forward = playerDirectionXZ - transform.position;// Boss 强制面向玩家
 
-        yield return new WaitForSeconds(1.5f); // 停顿1.5秒
-        //transform.position = originalPosition; // 返回原始位置
+        yield return new WaitForSeconds(1.5f); // 停顿1.5秒（释放攻击动画的时间）
+        //transform.position = originalPosition; // 返回原始位置（效果不好，会贴脸玩家）
 
         if (attackType == 1)
             CloseRangeAttack();
@@ -157,20 +160,22 @@ public class Boss : MonoBehaviour
         // ResetActionCooldown();
     }
 
+    //穿刺攻击
     IEnumerator ChargeAttack(int times)
     {
         while (times > 0)
         {
             // Boss 面朝玩家
-            Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); // 保持Y轴高度不变
+            Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); 
             transform.forward = playerDirectionXZ - transform.position;
 
+            //准备
             Debug.Log("Charging...");
             StartCoroutine(StopMoving(chargePrepareTime));
             yield return new WaitForSeconds(chargePrepareTime);
 
+            //执行冲刺
             Vector3 targetPos = player.transform.position + playerDirection * chargeOffset;
-
             while (Vector3.Distance(transform.position, targetPos) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, chargeSpeed * Time.deltaTime);

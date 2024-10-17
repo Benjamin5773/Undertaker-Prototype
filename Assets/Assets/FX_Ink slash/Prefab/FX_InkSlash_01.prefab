@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 632582456381105825}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.10229188, y: -0.012992008, z: 0.00092980254, w: 0.9946692}
   m_LocalPosition: {x: 2.09, y: 0.19, z: -0.61}
   m_LocalScale: {x: 1, y: 0.669756, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 11.743001, y: -1.5020001, z: -0.047000002}
 --- !u!198 &3357030820032563900
 ParticleSystem:
@@ -4824,13 +4824,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -4865,13 +4867,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2186840410946266171}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.0746183, y: -0.07970127, z: 0.70935714, w: 0.6963421}
   m_LocalPosition: {x: 1.89, y: 0.02, z: -0.64}
   m_LocalScale: {x: 0.82438415, y: 1.2409474, z: 1.0000007}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 12.532001, y: -0.30100003, z: 91.02801}
 --- !u!198 &6706024211066092674
 ParticleSystem:
@@ -9731,13 +9733,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -9772,13 +9776,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3654500639863478300}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.040089786, y: -0.10155278, z: 0.915688, w: 0.38677573}
   m_LocalPosition: {x: 2.6, y: -0.15, z: -0.67}
   m_LocalScale: {x: 1, y: 1, z: 1.0000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 12.532001, y: -0.30200002, z: 134.17001}
 --- !u!198 &2637759062122183470
 ParticleSystem:
@@ -14638,13 +14642,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -14677,6 +14683,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4057903472989225669}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -14684,7 +14691,6 @@ Transform:
   m_Children:
   - {fileID: 4338404707142547587}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4626839093410348858
 GameObject:
@@ -14711,13 +14717,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4626839093410348858}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.2508395, y: -0.6256301, z: -0.6585895, w: -0.33455414}
   m_LocalPosition: {x: -0.4113305, y: 0.3209502, z: -0.54799366}
   m_LocalScale: {x: 0.9996803, y: 0.99856013, z: 0.7017603}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -1.496, y: -364.134, z: 44.945004}
 --- !u!198 &512504699900776740
 ParticleSystem:
@@ -19568,13 +19574,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -19609,13 +19617,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6047439305292435947}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.5791529, y: 0.17608677, z: 0.27461642, w: -0.74710196}
   m_LocalPosition: {x: 1.571, y: -0.367, z: 0.711}
   m_LocalScale: {x: 0.99707067, y: 0.98358136, z: 0.71935076}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -2.551, y: -14.495001, z: 237.323}
 --- !u!198 &2677538886743846820
 ParticleSystem:
@@ -24466,13 +24474,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -24507,6 +24517,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6323106623632173183}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.5806029, y: -0.40940633, z: -0.51467466, w: 0.47999668}
   m_LocalPosition: {x: -0.16142, y: 0.87265, z: 1.3858}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -24520,7 +24531,6 @@ Transform:
   - {fileID: 3246944784151867983}
   - {fileID: 8385998339672487494}
   m_Father: {fileID: 8576041943568544160}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -78.18, y: 92.63801, z: -174.768}
 --- !u!198 &4869007683130271779
 ParticleSystem:
@@ -29313,13 +29323,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -29354,13 +29366,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7626686817869728507}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.7412579, y: 0.11109272, z: -0.03747788, w: -0.6609013}
   m_LocalPosition: {x: -0.29000968, y: 0.24002759, z: -0.25000763}
   m_LocalScale: {x: 0.99830043, y: 0.99999017, z: 0.7017203}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 81.161, y: 216.444, z: -131.459}
 --- !u!198 &230069595460460607
 ParticleSystem:
@@ -34211,13 +34223,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 4300000, guid: 57ead979b75ccc24c93945580213738a, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
@@ -34252,13 +34266,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7852557853611767122}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.5145247, y: 0.43311292, z: 0.41450638, w: 0.6130759}
   m_LocalPosition: {x: -0.24580231, y: 0.18168743, z: -0.238558}
   m_LocalScale: {x: 0.99830073, y: 0.99999064, z: 0.7017206}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4338404707142547587}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -0.54200006, y: -4.3050003, z: -12.210001}
 --- !u!198 &4273312613033037562
 ParticleSystem:
@@ -39109,13 +39123,15 @@ ParticleSystemRenderer:
   m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_Flip: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
+  m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304
+  m_UseCustomTrailVertexStreams: 0
+  m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 4300000, guid: 57ead979b75ccc24c93945580213738a, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}

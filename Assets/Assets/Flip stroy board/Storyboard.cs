@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class StoryBoard : MonoBehaviour
 {
-    [Header("Player Settings")]
-    public GameObject player;  
+    [Header("Player  Setting")]
+    [SerializeField] GameObject player;  
 
     [Header("Rotation Settings")]
     [Tooltip("Angle to rotate when triggered (degrees)")]
-    public float rotationAngle = -90.0f;  
+    [SerializeField] float rotationAngle = -90.0f;  
 
-    [Tooltip("Rotation speed (degrees per second)")]
-    public float rotationSpeed = 90.0f;  
+    [Tooltip("Rotation speed")]
+    [SerializeField] float rotationSpeed = 90.0f;  
 
     private bool isRotating = false;
     private float targetRotationX;
@@ -39,7 +39,8 @@ public class StoryBoard : MonoBehaviour
         targetRotationX = currentRotationX + rotationAngle;
         isRotating = true;
     }
-
+    
+    //Ö´ÐÐÐý×ª
     private void RotateTowardsTarget()
     {
         float step = rotationSpeed * Time.deltaTime;  

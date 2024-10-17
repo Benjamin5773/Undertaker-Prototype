@@ -99,10 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bossMaxHealth: 5
+  bossMaxHealth: 100
   bossMoveSpeed: 2.5
+  bossHealth: 100
   teleportDistance: 3
   teleportDelay: 2
+  chargePrepareTime: 1
+  chargeSpeed: 25
+  chargeOffset: 3
   minActionCooldown: 3
   maxActionCooldown: 3
   closeRangeThreshold: 1
