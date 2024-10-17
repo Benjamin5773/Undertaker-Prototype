@@ -29,6 +29,12 @@ public class Boss : MonoBehaviour
     [SerializeField] float closeRangeThreshold = 10f;
     private float actionCooldownTimer;
 
+    [Header("Effects")]
+    //[SerializeField] GameObject teleportEffect; // 闪现特效
+    //[SerializeField] GameObject chargeEffect;   // 冲刺特效
+    [SerializeField] ParticleSystem teleportEffect; 
+    [SerializeField] ParticleSystem chargeEffect;  
+
     [HideInInspector] public enum State
     {
         cooldown,
@@ -148,13 +154,18 @@ public class Boss : MonoBehaviour
         Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); 
         //transform.LookAt(playerDirectionXZ); 
         transform.forward = playerDirectionXZ - transform.position;// Boss 强制面向玩家
-
-        yield return new WaitForSeconds(1.5f); // 停顿1.5秒（释放攻击动画的时间）
+        
+       // yield return new WaitForSeconds(1.5f); // 停顿（完成转向）
+        
         //transform.position = originalPosition; // 返回原始位置（效果不好，会贴脸玩家）
 
         if (attackType == 1)
-            CloseRangeAttack();
+        {
+         yield return new WaitForSeconds(1f); // 停顿（完成转向）
+         CloseRangeAttack();
+        }
         if (attackType == 2)
+            
             StartCoroutine(ChargeAttack(3));
         // ChasingPlayer(); // 继续追踪玩家
         // ResetActionCooldown();
@@ -165,6 +176,7 @@ public class Boss : MonoBehaviour
     {
         while (times > 0)
         {
+           
             // Boss 面朝玩家
             Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); 
             transform.forward = playerDirectionXZ - transform.position;
@@ -173,14 +185,25 @@ public class Boss : MonoBehaviour
             Debug.Log("Charging...");
             StartCoroutine(StopMoving(chargePrepareTime));
             yield return new WaitForSeconds(chargePrepareTime);
+            
+             yield return new WaitForSeconds(1f); // 停顿（完成转向）
+
+            // 播放粒子特效
+            chargeEffect.Play(); // 播放粒子特效
 
             //执行冲刺
+     
+           
             Vector3 targetPos = player.transform.position + playerDirection * chargeOffset;
             while (Vector3.Distance(transform.position, targetPos) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, chargeSpeed * Time.deltaTime);
+               // GameObject effect = Instantiate(chargeEffect, transform.position, Quaternion.identity);
+               // Destroy(effect, 1f);
                 yield return null;
             }
+
+
 
             times--;
         }
@@ -191,6 +214,10 @@ public class Boss : MonoBehaviour
     void CloseRangeAttack()
     {
         Debug.Log("Close range attack");
+         // 播放攻击特效
+          teleportEffect.Play(); // 播放粒子特效
+       // GameObject effect = Instantiate(teleportEffect, transform.position, Quaternion.identity);
+        //Destroy(effect, 1f); // 完成后销毁特效
         ResetActionCooldown();
     }
 
