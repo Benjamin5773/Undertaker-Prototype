@@ -304,7 +304,7 @@ public class Player : MonoBehaviour
     }
 
     public void ApplyDamage() {
-        enemy.GetComponent<EnemyTest>().TakeDamage(Damage);
+        //enemy.GetComponent<EnemyTest>().TakeDamage(Damage);
     }
 
 }

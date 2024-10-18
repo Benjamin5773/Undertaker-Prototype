@@ -97,12 +97,12 @@ namespace TopDownShooter
 
         public bool GetJumpValue()
         {
-            return Input.GetKeyDown(KeyCode.Space);
+            return Input.GetKeyDown(KeyCode.F);
         }
 
         public bool GetDashValue()
         {
-            return Input.GetKeyDown(KeyCode.F);
+            return Input.GetKeyDown(KeyCode.Space);
         }
 
         public bool GetJetPackValue()
