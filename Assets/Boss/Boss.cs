@@ -15,12 +15,12 @@ public class Boss : MonoBehaviour
     [SerializeField] float bossHealth;
 
     [Header("Teleport")]
-    [SerializeField] float teleportDistance = 3f; // 闪现的距离
-    [SerializeField] float teleportDelay = 2f; // 闪现前的倒计时
+    [SerializeField] float teleportDistance = 3f;
+    [SerializeField] float teleportDelay = 2f;
 
     [Header("ChargeAttack")]
-    [SerializeField] float chargePrepareTime = 1f;// 穿刺前摇
-    [SerializeField] float chargeSpeed = 25f;// 穿刺速度
+    [SerializeField] float chargePrepareTime = 1f;
+    [SerializeField] float chargeSpeed = 25f;
     [SerializeField] float chargeOffset = 3f;
 
     [Header("Action")]
@@ -30,9 +30,12 @@ public class Boss : MonoBehaviour
     private float actionCooldownTimer;
 
     [Header("Effects")]
-    [SerializeField] ParticleSystem teleportEffect; //闪现攻击特效
-    [SerializeField] ParticleSystem chargeEffect;  //穿刺攻击特效
+    [SerializeField] ParticleSystem teleportEffect;
+    [SerializeField] ParticleSystem chargeEffect;
 
+    private Animator animator;
+    private NavMeshAgent agent;
+    
     [HideInInspector] public enum State
     {
         cooldown,
@@ -43,7 +46,6 @@ public class Boss : MonoBehaviour
 
     float playerDistance;
     Vector3 playerDirection;
-    private NavMeshAgent agent;
 
     void Start()
     {
@@ -51,6 +53,7 @@ public class Boss : MonoBehaviour
         actionCooldownTimer = 5f;
 
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>(); // 获取Animator组件
     }
 
     private void FixedUpdate()
@@ -87,6 +90,16 @@ public class Boss : MonoBehaviour
     {
         agent.destination = player.transform.position;
         agent.speed = bossMoveSpeed;
+
+        // 检查移动状态并设置Animator参数
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            animator.SetBool("Run", true); // 设置run为true
+        }
+        else
+        {
+            animator.SetBool("Run", false); // 设置run为false
+        }
     }
 
     void GetDistanceDirection()
@@ -99,7 +112,6 @@ public class Boss : MonoBehaviour
 
     void MakeDecision()
     {
-        //一阶段
         if ((bossHealth / bossMaxHealth) >= 2.0f/3.0f)
         {
             if (playerDistance > closeRangeThreshold)
@@ -107,7 +119,6 @@ public class Boss : MonoBehaviour
             else
                 CloseRangeAttack();
         }
-        //二阶段
         else if ((bossHealth / bossMaxHealth) < 2.0f/3.0f && (bossHealth / bossMaxHealth) >= 1.0f/3.0f)
         {
             if (playerDistance > closeRangeThreshold)
@@ -139,65 +150,43 @@ public class Boss : MonoBehaviour
         StartCoroutine(TeleportAttack(attackType));
     }
 
-    // 1: CloseRangeAttack
-    // 2: TripleChargeAttack
-    //闪现攻击
     IEnumerator TeleportAttack(int attackType)
     {
-        Vector3 originalPosition = transform.position; 
-        Vector3 teleportPosition = player.transform.position + player.transform.forward * teleportDistance; // 计算闪现位置
-        transform.position = teleportPosition; 
-        
-        // Boss 面朝玩家
-        Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); 
-        //transform.LookAt(playerDirectionXZ); 
-        transform.forward = playerDirectionXZ - transform.position;// Boss 强制面向玩家
-        
-       // yield return new WaitForSeconds(1.5f); // 停顿（完成转向）
-        //transform.position = originalPosition; // 返回原始位置（效果不好，会贴脸玩家）
+        Vector3 originalPosition = transform.position;
+        Vector3 teleportPosition = player.transform.position + player.transform.forward * teleportDistance;
+        transform.position = teleportPosition;
+
+        Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        transform.forward = playerDirectionXZ - transform.position;
 
         if (attackType == 1)
         {
-         yield return new WaitForSeconds(1f); // 停顿（完成转向）
-         CloseRangeAttack();
+            yield return new WaitForSeconds(1f);
+            CloseRangeAttack();
         }
         if (attackType == 2)
             StartCoroutine(ChargeAttack(3));
-        // ChasingPlayer(); // 继续追踪玩家
-        // ResetActionCooldown();
     }
 
-    //穿刺攻击
     IEnumerator ChargeAttack(int times)
     {
         while (times > 0)
         {
-           
-            // Boss 面朝玩家
-            Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z); 
+            Vector3 playerDirectionXZ = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
             transform.forward = playerDirectionXZ - transform.position;
 
-            //准备
             Debug.Log("Charging...");
             StartCoroutine(StopMoving(chargePrepareTime));
             yield return new WaitForSeconds(chargePrepareTime);
             
-             yield return new WaitForSeconds(1f); // 停顿（完成转向）
+            chargeEffect.Play();
 
-            // 播放粒子特效
-            chargeEffect.Play(); // 播放粒子特效
-
-            //执行冲刺
-     
-           
             Vector3 targetPos = player.transform.position + playerDirection * chargeOffset;
             while (Vector3.Distance(transform.position, targetPos) > 0.1f)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, chargeSpeed * Time.deltaTime);
                 yield return null;
             }
-
-
 
             times--;
         }
@@ -207,9 +196,12 @@ public class Boss : MonoBehaviour
 
     void CloseRangeAttack()
     {
+        animator.SetTrigger("MelleAttack"); // 触发meleeAttack动画
         Debug.Log("Close range attack");
-         // 播放攻击特效
-          teleportEffect.Play(); // 播放粒子特效
+        
+        teleportEffect.Play();
+        
+        //animator.SetTrigger("MelleAttack"); // 触发meleeAttack动画
 
         ResetActionCooldown();
     }
